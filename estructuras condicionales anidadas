@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verificador Navidad</title>
+</head>
+<body>
+    <script>
+        let dia = parseInt(prompt('Ingrese el día:'));
+        let mes = parseInt(prompt('Ingrese el mes:'));
+        let anio = parseInt(prompt('Ingrese el año:'));
+        
+        // ESTRUCTURAS CONDICIONALES ANIDADAS
+        if (mes === 12) {
+            if (dia === 25) {
+                document.write('<h1>🎄 ¡FELIZ NAVIDAD! 🎅</h1>');
+                document.write('<p>25 de Diciembre de ' + anio + '</p>');
+            } else {
+                document.write('<p>Es diciembre pero no es Navidad</p>');
+                document.write('<p>Día: ' + dia + ' de Diciembre de ' + anio + '</p>');
+            }
+        } else {
+            document.write('<p>No es diciembre</p>');
+            document.write('<p>' + dia + '/' + mes + '/' + anio + '</p>');
+        }
+    </script>
+</body>
+</html>
