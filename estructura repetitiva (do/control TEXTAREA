@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Visitas</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 600px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .formulario {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .control-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #b2bec3;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #6c5ce7;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #b2bec3;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+            resize: vertical;
+            min-height: 120px;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 5px rgba(108, 92, 231, 0.3);
+        }
+        button {
+            background: #6c5ce7;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #5649c2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        .contador {
+            text-align: right;
+            font-size: 12px;
+            color: #636e72;
+            margin-top: 5px;
+        }
+        .instrucciones {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fdcb6e;
+        }
+        .requisito {
+            color: #e17055;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario">
+        <h1>📝 Formulario de Visitas</h1>
+        
+        <div class="instrucciones">
+            <h3>CONTROL TEXTAREA</h3>
+            <p>Completa el formulario para dejar tu visita y comentarios en nuestro sitio.</p>
+        </div>
+
+        <form onsubmit="mostrarDatos(); return false;">
+            <div class="control-group">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" placeholder="Ingresa tu nombre" required>
+                <div class="requisito">* Campo obligatorio</div>
+            </div>
+            
+            <div class="control-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+                <div class="requisito">* Campo obligatorio</div>
+            </div>
+            
+            <div class="control-group">
+                <label for="comentarios">Comentarios:</label>
+                <textarea id="comentarios" placeholder="Escribe tus comentarios, sugerencias o preguntas aquí..." maxlength="500"></textarea>
+                <div class="contador">
+                    <span id="contadorCaracteres">0</span>/500 caracteres
+                </div>
+            </div>
+            
+            <button type="submit">Enviar Visita</button>
+        </form>
+    </div>
+
+    <script>
+        // Contador de caracteres para el TEXTAREA
+        const textarea = document.getElementById('comentarios');
+        const contador = document.getElementById('contadorCaracteres');
+        
+        textarea.addEventListener('input', function() {
+            const longitud = this.value.length;
+            contador.textContent = longitud;
+            
+            // Cambiar color cuando se acerca al límite
+            if (longitud > 450) {
+                contador.style.color = '#e17055';
+            } else if (longitud > 400) {
+                contador.style.color = '#fdcb6e';
+            } else {
+                contador.style.color = '#636e72';
+            }
+        });
+        
+        function mostrarDatos() {
+            // Obtener valores de los controles
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const comentarios = document.getElementById('comentarios').value.trim();
+            
+            // Validar campos obligatorios
+            if (nombre === '' || email === '') {
+                alert('⚠️ Por favor, completa los campos obligatorios (Nombre y Email)');
+                return;
+            }
+            
+            // Validar formato de email básico
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('❌ Por favor, ingresa un correo electrónico válido');
+                document.getElementById('email').focus();
+                return;
+            }
+            
+            // Preparar mensaje para el ALERT
+            let mensaje = `🎉 ¡VISITA REGISTRADA!\n\n`;
+            mensaje += `📋 **Datos del visitante:**\n`;
+            mensaje += `────────────────────\n`;
+            mensaje += `👤 **Nombre:** ${nombre}\n`;
+            mensaje += `📧 **Email:** ${email}\n`;
+            mensaje += `💬 **Comentarios:** ${comentarios || 'No se ingresaron comentarios'}\n`;
+            mensaje += `────────────────────\n`;
+            mensaje += `¡Gracias por visitarnos! 🎊`;
+            
+            // Mostrar ALERT con los datos
+            alert(mensaje);
+            
+            // Opcional: limpiar formulario después del envío
+            setTimeout(() => {
+                document.getElementById('nombre').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('comentarios').value = '';
+                contador.textContent = '0';
+                contador.style.color = '#636e72';
+                document.getElementById('nombre').focus();
+            }, 100);
+        }
+        
+        // Enfocar el primer campo al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('nombre').focus();
+        });
+    </script>
+</body>
+</html>
