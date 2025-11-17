@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparación de Números</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 400px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .input-group { 
+            margin: 15px 0; 
+        }
+        input { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 5px 0; 
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button { 
+            background: #4CAF50; 
+            color: white; 
+            padding: 12px; 
+            border: none; 
+            width: 100%; 
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 4px;
+            text-align: center;
+        }
+        .suma-diferencia { 
+            background: #e8f5e8; 
+            border: 1px solid #4CAF50;
+        }
+        .producto-division { 
+            background: #fff3e0; 
+            border: 1px solid #ff9800;
+        }
+        .operation {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Comparación de Números</h2>
+    
+    <div class="input-group">
+        <input type="number" id="numero1" placeholder="Ingrese el primer número">
+    </div>
+    <div class="input-group">
+        <input type="number" id="numero2" placeholder="Ingrese el segundo número">
+    </div>
+    
+    <button onclick="comparar()">Comparar Números</button>
+    
+    <div id="resultado" class="result"></div>
+
+    <script>
+        function comparar() {
+            // Obtener los números
+            let num1 = parseFloat(document.getElementById('numero1').value);
+            let num2 = parseFloat(document.getElementById('numero2').value);
+            
+            // Validar que sean números
+            if (isNaN(num1) || isNaN(num2)) {
+                alert('Por favor, ingrese ambos números');
+                return;
+            }
+            
+            // Validar división por cero
+            if (num1 <= num2 && num2 === 0) {
+                alert('No se puede dividir por cero');
+                return;
+            }
+            
+            let resultado = document.getElementById('resultado');
+            let html = '';
+            
+            // ESTRUCTURA CONDICIONAL COMPUESTA
+            if (num1 > num2) {
+                // Si el primero es mayor al segundo
+                let suma = num1 + num2;
+                let diferencia = num1 - num2;
+                
+                resultado.className = 'result suma-diferencia';
+                html = '<h3>Primer número es MAYOR</h3>';
+                html += '<div class="operation">Suma: ' + num1 + ' + ' + num2 + ' = ' + suma + '</div>';
+                html += '<div class="operation">Diferencia: ' + num1 + ' - ' + num2 + ' = ' + diferencia + '</div>';
+            } else {
+                // Si el primero NO es mayor al segundo
+                let producto = num1 * num2;
+                let division = num2 !== 0 ? (num1 / num2).toFixed(2) : 'No divisible';
+                
+                resultado.className = 'result producto-division';
+                html = '<h3>Primer número NO es mayor</h3>';
+                html += '<div class="operation">Producto: ' + num1 + ' × ' + num2 + ' = ' + producto + '</div>';
+                html += '<div class="operation">División: ' + num1 + ' ÷ ' + num2 + ' = ' + division + '</div>';
+            }
+            
+            resultado.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
