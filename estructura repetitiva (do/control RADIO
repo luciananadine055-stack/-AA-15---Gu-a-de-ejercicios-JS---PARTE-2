@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Validador de Edad</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 450px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .formulario {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .radio-group {
+            margin: 25px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+        .opcion {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .opcion:hover {
+            border-color: #6c5ce7;
+            background: #f0f3ff;
+            transform: translateX(5px);
+        }
+        .opcion label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+        }
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #6c5ce7;
+        }
+        button {
+            background: #6c5ce7;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #5649c2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        button:disabled {
+            background: #b2bec3;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .instrucciones {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fdcb6e;
+        }
+        .icono {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .seleccion-actual {
+            background: #e8f4f8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #0984e3;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario">
+        <h1>Validador de Edad</h1>
+        
+        <div class="instrucciones">
+            <h3>CONTROL RADIO BUTTON</h3>
+            <p>Selecciona una opción para verificar si puedes ingresar al sitio:</p>
+        </div>
+
+        <form onsubmit="validarEdad(); return false;">
+            <div class="radio-group">
+                <h3>¿Eres mayor de 18 años?</h3>
+                
+                <div class="opcion">
+                    <label>
+                        <input type="radio" name="edad" id="mayor" value="si">
+                        <span class="icono">✅</span> Sí, soy mayor de 18 años
+                    </label>
+                </div>
+                
+                <div class="opcion">
+                    <label>
+                        <input type="radio" name="edad" id="menor" value="no">
+                        <span class="icono">❌</span> No, soy menor de 18 años
+                    </label>
+                </div>
+            </div>
+            
+            <div id="seleccionActual" class="seleccion-actual">
+                <!-- Aquí se muestra la selección actual -->
+            </div>
+            
+            <button type="submit" id="botonValidar" disabled>Verificar Acceso</button>
+        </form>
+    </div>
+
+    <script>
+        // Obtener elementos
+        const radioMayor = document.getElementById('mayor');
+        const radioMenor = document.getElementById('menor');
+        const botonValidar = document.getElementById('botonValidar');
+        const seleccionActual = document.getElementById('seleccionActual');
+        
+        // Habilitar botón cuando se seleccione una opción
+        const radios = document.querySelectorAll('input[name="edad"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Habilitar el botón
+                botonValidar.disabled = false;
+                
+                // Mostrar selección actual
+                if (this.value === 'si') {
+                    seleccionActual.innerHTML = '✅ Seleccionado: Mayor de 18 años';
+                } else {
+                    seleccionActual.innerHTML = '❌ Seleccionado: Menor de 18 años';
+                }
+                seleccionActual.style.display = 'block';
+            });
+        });
+        
+        function validarEdad() {
+            let mensaje = '';
+            
+            // Verificar qué RADIO BUTTON está seleccionado
+            if (radioMayor.checked) {
+                mensaje = '🎉 ¡ACCESO PERMITIDO!\n\nEres mayor de 18 años.\nPuedes ingresar al sitio.';
+            } else if (radioMenor.checked) {
+                mensaje = '🚫 ¡ACCESO DENEGADO!\n\nEres menor de 18 años.\nNo puedes ingresar al sitio.';
+            } else {
+                alert('⚠️ Por favor, selecciona una opción');
+                return;
+            }
+            
+            // Mostrar ALERT con el resultado
+            alert(mensaje);
+            
+            // Opcional: resetear después de mostrar
+            setTimeout(() => {
+                // radios.forEach(radio => radio.checked = false);
+                // botonValidar.disabled = true;
+                // seleccionActual.style.display = 'none';
+            }, 100);
+        }
+        
+        // También se puede validar con Enter
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !botonValidar.disabled) {
+                validarEdad();
+            }
+        });
+    </script>
+</body>
+</html>
