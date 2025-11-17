@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Potencia al Cubo</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 500px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .input-group { 
+            margin: 20px 0; 
+        }
+        input { 
+            width: 200px; 
+            padding: 12px; 
+            margin: 10px 0; 
+            border: 2px solid #6c5ce7;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+        button { 
+            background: #6c5ce7; 
+            color: white; 
+            padding: 12px 30px; 
+            border: none; 
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #5649c2;
+            transform: translateY(-2px);
+        }
+        .resultado { 
+            margin-top: 25px; 
+            padding: 25px; 
+            border-radius: 12px;
+            background: white;
+            border: 3px solid #00b894;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .formula {
+            background: #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+        }
+        .numero {
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+        .potencia {
+            color: #e17055;
+            font-weight: bold;
+        }
+        .resultado-final {
+            color: #00b894;
+            font-size: 24px;
+        }
+        .instrucciones {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #0984e3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Potencia al Cubo</h1>
+        
+        <div class="instrucciones">
+            <h3>CLASE MATH - Potenciación</h3>
+            <p>Ingrese un número y el programa calculará su valor elevado a la tercera potencia (al cubo).</p>
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="numero" placeholder="Ingrese un número" step="any">
+        </div>
+        
+        <button onclick="calcularCubo()">Calcular al Cubo</button>
+        
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularCubo() {
+            // Obtener el número ingresado
+            const numeroInput = document.getElementById('numero');
+            const numero = parseFloat(numeroInput.value);
+            
+            // Validar que sea un número
+            if (isNaN(numero)) {
+                alert('Por favor, ingrese un número válido');
+                numeroInput.focus();
+                return;
+            }
+            
+            // CLASE MATH - Calcular potencia al cubo
+            const cubo = Math.pow(numero, 3);
+            
+            // Mostrar resultado
+            mostrarResultado(numero, cubo);
+        }
+        
+        function mostrarResultado(numero, cubo) {
+            const resultado = document.getElementById('resultado');
+            
+            resultado.innerHTML = `
+                <div class="formula">
+                    <span class="numero">${numero}</span>³ = 
+                    <span class="numero">${numero}</span> × 
+                    <span class="numero">${numero}</span> × 
+                    <span class="numero">${numero}</span>
+                </div>
+                
+                <div class="resultado">
+                    <span class="numero">${numero}</span> elevado a la tercera potencia es: 
+                    <br>
+                    <span class="resultado-final">${cubo}</span>
+                </div>
+                
+                <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                    <em>Usando: Math.pow(${numero}, 3) = ${cubo}</em>
+                </div>
+            `;
+        }
+        
+        // Permitir calcular con Enter
+        document.getElementById('numero').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calcularCubo();
+            }
+        });
+    </script>
+</body>
+</html>
