@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cuatrimestre Actual</title>
+    <style>
+        body { font-family: Arial; margin: 50px; text-align: center; }
+        .resultado { padding: 20px; margin: 20px 0; border-radius: 10px; }
+        .cuatrimestre { font-size: 24px; font-weight: bold; padding: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Cuatrimestre Actual</h1>
+    
+    <script>
+        // CLASE DATE - Obtener fecha actual
+        const fecha = new Date();
+        const mes = fecha.getMonth() + 1; // Mes actual (1-12)
+        
+        let cuatrimestre;
+        
+        // Determinar cuatrimestre
+        if (mes >= 1 && mes <= 4) {
+            cuatrimestre = "PRIMER CUATRIMESTRE (Enero-Abril)";
+            document.write('<div class="resultado" style="background:#e17055;color:white">');
+        } else if (mes >= 5 && mes <= 8) {
+            cuatrimestre = "SEGUNDO CUATRIMESTRE (Mayo-Agosto)";
+            document.write('<div class="resultado" style="background:#0984e3;color:white">');
+        } else {
+            cuatrimestre = "TERCER CUATRIMESTRE (Septiembre-Diciembre)";
+            document.write('<div class="resultado" style="background:#00b894;color:white">');
+        }
+        
+        document.write(`<div class="cuatrimestre">${cuatrimestre}</div>`);
+        document.write(`<p>Fecha: ${fecha.toLocaleDateString('es-ES')}</p>`);
+        document.write('</div>');
+    </script>
+</body>
+</html>
