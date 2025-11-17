@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Triángulos</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 600px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .triangulo { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 8px;
+            border-left: 4px solid #6c5ce7;
+        }
+        .resumen { 
+            background: #00b894; 
+            color: white; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 10px;
+            text-align: center;
+        }
+        button { 
+            background: #6c5ce7; 
+            color: white; 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .superficie-mayor {
+            background: #ffeaa7;
+            border: 2px solid #fdcb6e;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Triángulos</h2>
+    <p>Ingrese 3 pares de datos (base y altura) para 3 triángulos:</p>
+    
+    <button onclick="calcularTriangulos()">Comenzar Cálculo</button>
+    
+    <div id="resultados"></div>
+
+    <script>
+        function calcularTriangulos() {
+            const resultados = document.getElementById('resultados');
+            resultados.innerHTML = '';
+            
+            // ACUMULADOR para triángulos con superficie > 12
+            let contadorMayores = 0;
+            let htmlResultados = '';
+            
+            // ESTRUCTURA FOR para 3 triángulos
+            for (let i = 1; i <= 3; i++) {
+                // Leer datos del triángulo actual
+                let base = parseFloat(prompt(`Triángulo ${i} - Ingrese la base:`));
+                let altura = parseFloat(prompt(`Triángulo ${i} - Ingrese la altura:`));
+                
+                // Validar datos
+                if (isNaN(base) || isNaN(altura) || base <= 0 || altura <= 0) {
+                    alert('Datos inválidos. Deben ser números positivos.');
+                    i--; // Repetir este triángulo
+                    continue;
+                }
+                
+                // Calcular superficie (área)
+                let superficie = (base * altura) / 2;
+                
+                // Verificar si la superficie es mayor a 12
+                let claseEspecial = '';
+                if (superficie > 12) {
+                    contadorMayores++;
+                    claseEspecial = 'superficie-mayor';
+                }
+                
+                // Agregar resultado del triángulo actual
+                htmlResultados += `
+                    <div class="triangulo ${claseEspecial}">
+                        <h3>Triángulo ${i}:</h3>
+                        <p><strong>Base:</strong> ${base} unidades</p>
+                        <p><strong>Altura:</strong> ${altura} unidades</p>
+                        <p><strong>Superficie:</strong> ${superficie.toFixed(2)} unidades²</p>
+                        ${superficie > 12 ? '<p>✅ Superficie mayor a 12</p>' : ''}
+                    </div>
+                `;
+            }
+            
+            // Mostrar todos los resultados
+            resultados.innerHTML = htmlResultados;
+            
+            // Mostrar resumen final
+            resultados.innerHTML += `
+                <div class="resumen">
+                    <h3>RESUMEN FINAL</h3>
+                    <p><strong>Cantidad de triángulos con superficie mayor a 12: ${contadorMayores}</strong></p>
+                    <p>Total de triángulos procesados: 3</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
