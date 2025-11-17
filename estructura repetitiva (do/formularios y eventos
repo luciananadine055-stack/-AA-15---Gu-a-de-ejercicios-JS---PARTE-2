@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario con Botones</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 500px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .formulario {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .botones-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        .boton {
+            background: #6c5ce7;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        .boton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .boton-1 {
+            background: #e17055;
+        }
+        .boton-1:hover {
+            background: #d63031;
+        }
+        .boton-2 {
+            background: #00b894;
+        }
+        .boton-2:hover {
+            background: #00a085;
+        }
+        .boton-3 {
+            background: #0984e3;
+        }
+        .boton-3:hover {
+            background: #074b83;
+        }
+        .mensaje {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            border: 2px solid #ddd;
+            font-size: 18px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .mensaje-activo {
+            border-color: #6c5ce7;
+            background: #f0f3ff;
+        }
+        .contador {
+            background: #2d3436;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .instrucciones {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fdcb6e;
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario">
+        <h1>Formulario con Botones</h1>
+        
+        <div class="instrucciones">
+            <h3>FORMULARIOS y EVENTOS</h3>
+            <p>Haz clic en cualquiera de los botones para ver un mensaje indicando cuál fue presionado.</p>
+        </div>
+
+        <div class="botones-container">
+            <button class="boton boton-1" onclick="mostrarMensaje(1)">Botón 1</button>
+            <button class="boton boton-2" onclick="mostrarMensaje(2)">Botón 2</button>
+            <button class="boton boton-3" onclick="mostrarMensaje(3)">Botón 3</button>
+        </div>
+        
+        <div id="mensaje" class="mensaje">
+            Presiona cualquier botón para ver el mensaje...
+        </div>
+        
+        <div class="contador">
+            Botones presionados: <span id="contador">0</span>
+        </div>
+    </div>
+
+    <script>
+        let contadorClicks = 0;
+        
+        function mostrarMensaje(numeroBoton) {
+            contadorClicks++;
+            
+            const mensaje = document.getElementById('mensaje');
+            const contadorElement = document.getElementById('contador');
+            
+            // Cambiar mensaje según el botón presionado
+            let textoMensaje = '';
+            let claseColor = '';
+            
+            switch(numeroBoton) {
+                case 1:
+                    textoMensaje = '✅ ¡Presionaste el BOTÓN 1!';
+                    claseColor = 'boton-1';
+                    break;
+                case 2:
+                    textoMensaje = '🔵 ¡Presionaste el BOTÓN 2!';
+                    claseColor = 'boton-2';
+                    break;
+                case 3:
+                    textoMensaje = '🟢 ¡Presionaste el BOTÓN 3!';
+                    claseColor = 'boton-3';
+                    break;
+            }
+            
+            // Actualizar mensaje
+            mensaje.innerHTML = textoMensaje;
+            mensaje.className = 'mensaje mensaje-activo';
+            mensaje.style.borderLeft = `5px solid ${getComputedStyle(document.querySelector('.boton-' + numeroBoton)).backgroundColor}`;
+            
+            // Actualizar contador
+            contadorElement.textContent = contadorClicks;
+            
+            // Efecto visual temporal
+            mensaje.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                mensaje.style.transform = 'scale(1)';
+            }, 200);
+        }
+        
+        // También se puede usar addEventListener (método alternativo)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Este es otro modo de manejar eventos
+            console.log('Formulario cargado y listo');
+        });
+    </script>
+</body>
+</html>
