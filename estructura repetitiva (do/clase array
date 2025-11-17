@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Análisis de Vector</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 600px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .input-group { 
+            margin: 10px 0; 
+        }
+        input { 
+            width: 80px; 
+            padding: 8px; 
+            margin: 5px; 
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        button { 
+            background: #6c5ce7; 
+            color: white; 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 15px 0;
+        }
+        button:hover {
+            background: #5649c2;
+        }
+        .resultado { 
+            margin-top: 20px; 
+            padding: 20px; 
+            border-radius: 10px;
+            background: white;
+        }
+        .vector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .elemento {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #dfe6e9;
+            border: 2px solid #b2bec3;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .mayor36 {
+            background: #ffeaa7;
+            border-color: #fdcb6e;
+        }
+        .mayor50 {
+            background: #ff7675;
+            border-color: #d63031;
+            color: white;
+        }
+        .estadistica {
+            background: #74b9ff;
+            color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .instrucciones {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fdcb6e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Análisis de Vector</h1>
+        
+        <div class="instrucciones">
+            <h3>Ingrese 8 números enteros:</h3>
+            <p>El programa calculará:</p>
+            <ul>
+                <li>Suma total de todos los elementos</li>
+                <li>Suma de elementos mayores a 36</li>
+                <li>Cantidad de valores mayores a 50</li>
+            </ul>
+        </div>
+
+        <div class="input-group">
+            <div class="vector">
+                <input type="number" id="elem1" placeholder="Elem 1">
+                <input type="number" id="elem2" placeholder="Elem 2">
+                <input type="number" id="elem3" placeholder="Elem 3">
+                <input type="number" id="elem4" placeholder="Elem 4">
+                <input type="number" id="elem5" placeholder="Elem 5">
+                <input type="number" id="elem6" placeholder="Elem 6">
+                <input type="number" id="elem7" placeholder="Elem 7">
+                <input type="number" id="elem8" placeholder="Elem 8">
+            </div>
+        </div>
+        
+        <button onclick="analizarVector()">Analizar Vector</button>
+        
+        <div id="resultado" class="resultado"></div>
+    </div>
+
+    <script>
+        function analizarVector() {
+            // CREAR VECTOR (array) con 8 elementos
+            let vector = [];
+            
+            // Llenar el vector con los valores ingresados
+            for (let i = 1; i <= 8; i++) {
+                let valor = parseInt(document.getElementById(`elem${i}`).value);
+                if (isNaN(valor)) {
+                    alert(`Por favor, ingrese un valor válido para el elemento ${i}`);
+                    return;
+                }
+                vector.push(valor);
+            }
+            
+            // VARIABLES ACUMULADORAS
+            let sumaTotal = 0;
+            let sumaMayores36 = 0;
+            let contadorMayores50 = 0;
+            
+            // RECORRER EL VECTOR y realizar cálculos
+            for (let i = 0; i < vector.length; i++) {
+                let elemento = vector[i];
+                
+                // Acumular suma total
+                sumaTotal += elemento;
+                
+                // Acumular suma de elementos > 36
+                if (elemento > 36) {
+                    sumaMayores36 += elemento;
+                }
+                
+                // Contar elementos > 50
+                if (elemento > 50) {
+                    contadorMayores50++;
+                }
+            }
+            
+            // Mostrar resultados
+            mostrarResultados(vector, sumaTotal, sumaMayores36, contadorMayores50);
+        }
+        
+        function mostrarResultados(vector, sumaTotal, sumaMayores36, contadorMayores50) {
+            let html = '<h3>Vector ingresado:</h3><div class="vector">';
+            
+            // Mostrar vector con colores según condiciones
+            for (let i = 0; i < vector.length; i++) {
+                let clase = 'elemento';
+                if (vector[i] > 50) {
+                    clase += ' mayor50';
+                } else if (vector[i] > 36) {
+                    clase += ' mayor36';
+                }
+                html += `<div class="${clase}">${vector[i]}</div>`;
+            }
+            
+            html += '</div>';
+            
+            // Mostrar estadísticas
+            html += `
+                <div class="estadistica">
+                    <h3>Resultados del Análisis:</h3>
+                    <p><strong>Suma total de todos los elementos:</strong> ${sumaTotal}</p>
+                    <p><strong>Suma de elementos mayores a 36:</strong> ${sumaMayores36}</p>
+                    <p><strong>Cantidad de valores mayores a 50:</strong> ${contadorMayores50}</p>
+                </div>
+            `;
+            
+            document.getElementById('resultado').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
