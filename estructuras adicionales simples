@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Promoción Estudiantil</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
+        .input-group { margin: 10px 0; }
+        input { width: 100%; padding: 8px; margin: 5px 0; }
+        button { background: #4CAF50; color: white; padding: 10px; border: none; width: 100%; cursor: pointer; }
+        .result { margin-top: 20px; padding: 15px; text-align: center; font-size: 18px; font-weight: bold; }
+        .promocionado { background: #d4edda; color: #155724; }
+        .no-promocionado { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h2>Evaluación de Promoción</h2>
+    
+    <div class="input-group">
+        <input type="number" id="nota1" placeholder="Nota 1 (0-10)" min="0" max="10" step="0.1">
+    </div>
+    <div class="input-group">
+        <input type="number" id="nota2" placeholder="Nota 2 (0-10)" min="0" max="10" step="0.1">
+    </div>
+    <div class="input-group">
+        <input type="number" id="nota3" placeholder="Nota 3 (0-10)" min="0" max="10" step="0.1">
+    </div>
+    
+    <button onclick="evaluar()">Evaluar Promoción</button>
+    
+    <div id="resultado" class="result"></div>
+
+    <script>
+        function evaluar() {
+            // Obtener y convertir notas
+            let nota1 = parseFloat(document.getElementById('nota1').value);
+            let nota2 = parseFloat(document.getElementById('nota2').value);
+            let nota3 = parseFloat(document.getElementById('nota3').value);
+            
+            // Validar
+            if (nota1 < 0 || nota1 > 10 || nota2 < 0 || nota2 > 10 || nota3 < 0 || nota3 > 10) {
+                alert('Las notas deben estar entre 0 y 10');
+                return;
+            }
+            
+            // Calcular promedio
+            let suma = nota1 + nota2 + nota3;
+            let promedio = suma / 3;
+            
+            // Estructura condicional simple
+            let resultado = document.getElementById('resultado');
+            if (promedio >= 7) {
+                resultado.textContent = `Promocionado - Promedio: ${promedio.toFixed(2)}`;
+                resultado.className = 'result promocionado';
+            } else {
+                resultado.textContent = `No Promocionado - Promedio: ${promedio.toFixed(2)}`;
+                resultado.className = 'result no-promocionado';
+            }
+        }
+    </script>
+</body>
+</html>
