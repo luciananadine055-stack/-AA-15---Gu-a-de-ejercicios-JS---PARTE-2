@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Selección de Deportes</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 500px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .formulario {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .deportes-container {
+            margin: 25px 0;
+        }
+        .checkbox-group {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        .checkbox-group:hover {
+            border-color: #6c5ce7;
+            transform: translateX(5px);
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #6c5ce7;
+        }
+        button {
+            background: #6c5ce7;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #5649c2;
+            transform: translateY(-2px);
+        }
+        .resultado {
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 10px;
+            background: white;
+            border: 2px solid #00b894;
+            display: none;
+        }
+        .deporte-item {
+            background: #e8f4f8;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 4px solid #0984e3;
+            font-weight: bold;
+        }
+        .ninguno {
+            background: #fff9e6;
+            border-left: 4px solid #fdcb6e;
+            color: #e17055;
+        }
+        .contador {
+            background: #2d3436;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .instrucciones {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fdcb6e;
+        }
+        .icono-deporte {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario">
+        <h1>Selección de Deportes</h1>
+        
+        <div class="instrucciones">
+            <h3>CONTROL CHECKBOX</h3>
+            <p>Selecciona los deportes que practicas (puedes elegir varios):</p>
+        </div>
+
+        <form onsubmit="mostrarDeportes(); return false;">
+            <div class="deportes-container">
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="futbol" value="Fútbol">
+                        <span class="icono-deporte">⚽</span> Fútbol
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="basket" value="Básquet">
+                        <span class="icono-deporte">🏀</span> Básquet
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="tenis" value="Tenis">
+                        <span class="icono-deporte">🎾</span> Tenis
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit">Mostrar Deportes Seleccionados</button>
+        </form>
+        
+        <div id="resultado" class="resultado">
+            <!-- Aquí se mostrarán los resultados -->
+        </div>
+    </div>
+
+    <script>
+        function mostrarDeportes() {
+            // Array para almacenar deportes seleccionados
+            let deportesSeleccionados = [];
+            
+            // Verificar cada CHECKBOX
+            const futbol = document.getElementById('futbol');
+            const basket = document.getElementById('basket');
+            const tenis = document.getElementById('tenis');
+            
+            // Usar propiedad 'checked' para verificar selección
+            if (futbol.checked) {
+                deportesSeleccionados.push(futbol.value);
+            }
+            if (basket.checked) {
+                deportesSeleccionados.push(basket.value);
+            }
+            if (tenis.checked) {
+                deportesSeleccionados.push(tenis.value);
+            }
+            
+            // Mostrar resultados
+            mostrarResultados(deportesSeleccionados);
+        }
+        
+        function mostrarResultados(deportes) {
+            const resultado = document.getElementById('resultado');
+            let html = '<h3>🏆 Deportes que practicas:</h3>';
+            
+            if (deportes.length === 0) {
+                html += `
+                    <div class="deporte-item ninguno">
+                        ⚠️ No seleccionaste ningún deporte
+                    </div>
+                `;
+            } else {
+                // Mostrar cada deporte seleccionado
+                deportes.forEach(deporte => {
+                    let icono = '';
+                    if (deporte === 'Fútbol') icono = '⚽';
+                    else if (deporte === 'Básquet') icono = '🏀';
+                    else if (deporte === 'Tenis') icono = '🎾';
+                    
+                    html += `
+                        <div class="deporte-item">
+                            ${icono} ${deporte}
+                        </div>
+                    `;
+                });
+            }
+            
+            // Agregar contador
+            html += `
+                <div class="contador">
+                    Total de deportes seleccionados: <strong>${deportes.length}</strong>
+                </div>
+            `;
+            
+            resultado.innerHTML = html;
+            resultado.style.display = 'block';
+            
+            // Desplazarse al resultado
+            resultado.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Mostrar/ocultar resultado cuando cambie alguna selección
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                document.getElementById('resultado').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
