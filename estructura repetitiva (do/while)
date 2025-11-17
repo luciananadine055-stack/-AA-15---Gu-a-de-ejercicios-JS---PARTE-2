@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Acumulador</title>
+    <style>
+        body { font-family: Arial; margin: 50px; }
+        .resultado { padding: 20px; margin: 20px 0; border-radius: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>Acumulador de Valores</h2>
+    <button onclick="calcular()">Comenzar</button>
+    <div id="result"></div>
+
+    <script>
+        function calcular() {
+            let suma = 0; // ACUMULADOR
+            let valor;
+            
+            // DO/WHILE - se ejecuta al menos una vez
+            do {
+                valor = parseInt(prompt("Ingrese valor (9999 para terminar):"));
+                if (valor !== 9999) {
+                    suma += valor; // ACUMULAR
+                }
+            } while (valor !== 9999);
+            
+            // Mostrar resultado
+            let clase = suma > 0 ? 'background:#00b894;color:white' : 
+                        suma < 0 ? 'background:#d63031;color:white' : 
+                        'background:#636e72;color:white';
+            
+            let texto = suma > 0 ? 'MAYOR A CERO' : 
+                       suma < 0 ? 'MENOR A CERO' : 'CERO';
+            
+            document.getElementById('result').innerHTML = `
+                <div class="resultado" style="${clase}">
+                    <h3>Valor acumulado: ${suma}</h3>
+                    <p>El valor es <strong>${texto}</strong></p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
