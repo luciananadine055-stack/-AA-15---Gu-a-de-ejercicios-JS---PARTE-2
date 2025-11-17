@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Cubo</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 400px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .formulario {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .control-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 12px;
+            border: 2px solid #6c5ce7;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #e17055;
+            box-shadow: 0 0 5px rgba(225, 112, 85, 0.5);
+        }
+        button {
+            background: #6c5ce7;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #5649c2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .ejemplos {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #fdcb6e;
+            font-size: 14px;
+        }
+        .instrucciones {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #0984e3;
+        }
+        .ultimo-resultado {
+            margin-top: 15px;
+            padding: 10px;
+            background: #00b894;
+            color: white;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario">
+        <h1>Calculadora de Cubo</h1>
+        
+        <div class="instrucciones">
+            <h3>CONTROLES: FORM, BUTTON y TEXT</h3>
+            <p>Ingresa un número entero y presiona el botón para calcular su valor al cubo.</p>
+        </div>
+
+        <!-- FORM con controles TEXT y BUTTON -->
+        <form onsubmit="calcularCubo(); return false;">
+            <div class="control-group">
+                <label for="numero">Ingrese un número entero:</label>
+                <input type="text" id="numero" placeholder="Ej: 5">
+            </div>
+            
+            <button type="submit">Calcular Cubo</button>
+        </form>
+        
+        <div class="ejemplos">
+            <p><strong>Ejemplos:</strong></p>
+            <p>2³ = 8 | 3³ = 27 | 5³ = 125 | 10³ = 1000</p>
+        </div>
+        
+        <div id="ultimoResultado" class="ultimo-resultado" style="display: none;">
+            Último cálculo aparecerá aquí
+        </div>
+    </div>
+
+    <script>
+        function calcularCubo() {
+            // Obtener el valor del control TEXT
+            const numeroInput = document.getElementById('numero');
+            const valor = numeroInput.value.trim();
+            
+            // Validar que no esté vacío
+            if (valor === '') {
+                alert('⚠️ Por favor, ingrese un número');
+                numeroInput.focus();
+                return;
+            }
+            
+            // Validar que sea un número entero
+            const numero = parseInt(valor);
+            if (isNaN(numero)) {
+                alert('❌ Error: Debe ingresar un número entero válido');
+                numeroInput.focus();
+                numeroInput.select();
+                return;
+            }
+            
+            // Calcular el cubo usando Math.pow
+            const cubo = Math.pow(numero, 3);
+            
+            // Mostrar resultado usando ALERT (como pide el ejercicio)
+            alert(`🎯 RESULTADO:\n${numero} elevado al cubo es: ${cubo}\n\n${numero}³ = ${cubo}`);
+            
+            // También mostrar en pantalla (opcional)
+            mostrarUltimoResultado(numero, cubo);
+            
+            // Limpiar el campo para nuevo ingreso
+            numeroInput.value = '';
+            numeroInput.focus();
+        }
+        
+        function mostrarUltimoResultado(numero, cubo) {
+            const ultimoResultado = document.getElementById('ultimoResultado');
+            ultimoResultado.innerHTML = `
+                <strong>Último cálculo:</strong><br>
+                ${numero}³ = ${cubo}
+            `;
+            ultimoResultado.style.display = 'block';
+        }
+        
+        // Enfocar el campo de texto al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('numero').focus();
+        });
+        
+        // Validar entrada mientras se escribe (solo números)
+        document.getElementById('numero').addEventListener('input', function(e) {
+            // Permitir solo números y signo negativo
+            this.value = this.value.replace(/[^0-9\-]/g, '');
+            
+            // Evitar múltiples signos negativos
+            if (this.value.split('-').length > 2) {
+                this.value = this.value.replace(/-/g, '');
+                this.value = '-' + this.value.replace(/-/g, '');
+            }
+        });
+    </script>
+</body>
+</html>
