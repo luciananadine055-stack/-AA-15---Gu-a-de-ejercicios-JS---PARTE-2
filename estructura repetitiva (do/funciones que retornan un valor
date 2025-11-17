@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Encontrar el Mayor de Tres Números</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 500px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .input-group { 
+            margin: 15px 0; 
+        }
+        input { 
+            width: 100px; 
+            padding: 10px; 
+            margin: 0 10px; 
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button { 
+            background: #00b894; 
+            color: white; 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        button:hover {
+            background: #00a085;
+        }
+        .resultado { 
+            margin-top: 20px; 
+            padding: 25px; 
+            border-radius: 10px;
+            background: #f8f9fa;
+            border: 2px solid #00b894;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .numero {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        .mayor {
+            background: #00b894;
+            color: white;
+            border-color: #00a085;
+        }
+        .instrucciones {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #00b894;
+        }
+    </style>
+</head>
+<body>
+    <div class="instrucciones">
+        <h3>Función que Retorna el Mayor de Tres Números</h3>
+        <p>Ingrese tres números enteros. La función calculará y <strong>retornará</strong> el mayor de ellos.</p>
+    </div>
+
+    <div class="input-group">
+        <label>Número 1:</label>
+        <input type="number" id="num1" placeholder="Primero">
+    </div>
+    
+    <div class="input-group">
+        <label>Número 2:</label>
+        <input type="number" id="num2" placeholder="Segundo">
+    </div>
+    
+    <div class="input-group">
+        <label>Número 3:</label>
+        <input type="number" id="num3" placeholder="Tercero">
+    </div>
+    
+    <button onclick="encontrarMayor()">Encontrar el Mayor</button>
+    
+    <div id="resultado" class="resultado"></div>
+
+    <script>
+        // FUNCIÓN que RETORNA el mayor de tres números
+        function encontrarMayorDeTres(a, b, c) {
+            let mayor = a; // Asumimos que el primero es el mayor
+            
+            // Comparamos con el segundo número
+            if (b > mayor) {
+                mayor = b;
+            }
+            
+            // Comparamos con el tercer número
+            if (c > mayor) {
+                mayor = c;
+            }
+            
+            // RETORNAMOS el valor
+            return mayor;
+        }
+        
+        // Función alternativa usando Math.max
+        function encontrarMayorMath(a, b, c) {
+            return Math.max(a, b, c);
+        }
+        
+        // Función principal que usa el valor retornado
+        function encontrarMayor() {
+            // Obtener valores de los inputs
+            const num1 = parseInt(document.getElementById('num1').value);
+            const num2 = parseInt(document.getElementById('num2').value);
+            const num3 = parseInt(document.getElementById('num3').value);
+            
+            // Validar que sean números
+            if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+                alert('Por favor, ingrese los tres números');
+                return;
+            }
+            
+            // LLAMAR A LA FUNCIÓN y CAPTURAR el valor RETORNADO
+            const mayor = encontrarMayorDeTres(num1, num2, num3);
+            
+            // Mostrar resultado usando el valor retornado
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = `
+                <h3>Números ingresados:</h3>
+                <div>
+                    <span class="numero ${mayor === num1 ? 'mayor' : ''}">${num1}</span>
+                    <span class="numero ${mayor === num2 ? 'mayor' : ''}">${num2}</span>
+                    <span class="numero ${mayor === num3 ? 'mayor' : ''}">${num3}</span>
+                </div>
+                <h3 style="margin-top: 20px;">El número mayor es: <span style="color: #00b894;">${mayor}</span></h3>
+            `;
+        }
+    </script>
+</body>
+</html>
