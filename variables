@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables de Empleado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+        }
+        
+        h1 {
+            color: #764ba2;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .info-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .variable-display {
+            margin: 15px 0;
+            padding: 12px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .variable-name {
+            font-weight: bold;
+            color: #667eea;
+            display: inline-block;
+            width: 100px;
+        }
+        
+        .variable-value {
+            color: #333;
+        }
+        
+        .code-container {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .code-comment {
+            color: #a0aec0;
+        }
+        
+        .btn {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background-color: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .output-container {
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 100px;
+            border: 1px dashed #667eea;
+        }
+        
+        .output-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Variables de Empleado</h1>
+        
+        <div class="info-card">
+            <h2>Información del Empleado</h2>
+            <div class="variable-display">
+                <span class="variable-name">Nombre:</span>
+                <span class="variable-value" id="nombreDisplay">María González</span>
+            </div>
+            <div class="variable-display">
+                <span class="variable-name">Sueldo:</span>
+                <span class="variable-value" id="sueldoDisplay">$2,500.00</span>
+            </div>
+        </div>
+        
+        <div class="btn-container">
+            <button class="btn" onclick="mostrarConAlert()">Mostrar con alert()</button>
+            <button class="btn" onclick="mostrarEnPagina()">Mostrar en página</button>
+            <button class="btn" onclick="mostrarConDocumentWrite()">Mostrar con document.write()</button>
+        </div>
+        
+        <div class="output-container">
+            <div class="output-title">Salida:</div>
+            <div id="output"></div>
+        </div>
+        
+        <div class="code-container">
+            <pre><code>// Definición de variables
+<span class="code-comment">// Variable de tipo cadena para el nombre</span>
+let nombreEmpleado = "María González";
+
+<span class="code-comment">// Variable de tipo entero para el sueldo</span>
+let sueldoEmpleado = 2500;
+
+<span class="code-comment">// Mostrar variables en líneas distintas</span>
+function mostrarVariables() {
+    console.log(nombreEmpleado);
+    console.log(sueldoEmpleado);
+    
+    <span class="code-comment">// O usando alert()</span>
+    alert(nombreEmpleado + "\n" + sueldoEmpleado);
+    
+    <span class="code-comment">// O usando document.write()</span>
+    document.write(nombreEmpleado + "&lt;br&gt;");
+    document.write(sueldoEmpleado + "&lt;br&gt;");
+}</code></pre>
+        </div>
+    </div>
+
+    <script>
+        // Definición e inicialización de variables
+        let nombreEmpleado = "María González";
+        let sueldoEmpleado = 2500;
+        
+        // Función para mostrar con alert()
+        function mostrarConAlert() {
+            alert("Nombre: " + nombreEmpleado + "\nSueldo: $" + sueldoEmpleado);
+        }
+        
+        // Función para mostrar en la página
+        function mostrarEnPagina() {
+            const output = document.getElementById('output');
+            output.innerHTML = `
+                <div class="variable-display">
+                    <span class="variable-name">Nombre:</span>
+                    <span class="variable-value">${nombreEmpleado}</span>
+                </div>
+                <div class="variable-display">
+                    <span class="variable-name">Sueldo:</span>
+                    <span class="variable-value">$${sueldoEmpleado.toLocaleString()}</span>
+                </div>
+            `;
+        }
+        
+        // Función para mostrar con document.write()
+        function mostrarConDocumentWrite() {
+            // Abrir una nueva ventana
+            let nuevaVentana = window.open('', '_blank', 'width=500,height=300');
+            
+            // Escribir en la nueva ventana usando document.write()
+            nuevaVentana.document.write('<html><head><title>Variables de Empleado</title>');
+            nuevaVentana.document.write('<style>body { font-family: Arial, sans-serif; padding: 20px; }</style>');
+            nuevaVentana.document.write('</head><body>');
+            nuevaVentana.document.write('<h2>Variables de Empleado</h2>');
+            nuevaVentana.document.write('<strong>Nombre:</strong> ' + nombreEmpleado + '<br>');
+            nuevaVentana.document.write('<strong>Sueldo:</strong> $' + sueldoEmpleado + '<br>');
+            nuevaVentana.document.write('<br><button onclick="window.close()">Cerrar</button>');
+            nuevaVentana.document.write('</body></html>');
+            nuevaVentana.document.close();
+        }
+        
+        // Mostrar información inicial en la página
+        mostrarEnPagina();
+    </script>
+</body>
+</html>
