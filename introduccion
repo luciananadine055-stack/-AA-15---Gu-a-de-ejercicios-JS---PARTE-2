@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Nombre y Edad</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2575fc;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .info-box {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #2575fc;
+        }
+        
+        .info-item {
+            margin: 15px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #2575fc;
+        }
+        
+        .code-container {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .code-comment {
+            color: #a0aec0;
+        }
+        
+        .btn {
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #1a5fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mostrar Nombre y Edad</h1>
+        
+        <div class="info-box">
+            <div class="info-item">
+                <span class="label">Nombre:</span> <span id="nombre">Juan Pérez</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Edad:</span> <span id="edad">28 años</span>
+            </div>
+        </div>
+        
+        <button class="btn" onclick="mostrarConDocumentWrite()">Mostrar con document.write()</button>
+        
+        <div class="code-container">
+            <pre><code>// Código JavaScript
+function mostrarConDocumentWrite() {
+    // Abrir una nueva ventana
+    let nuevaVentana = window.open('', '_blank', 'width=500,height=300');
+    
+    // Escribir en la nueva ventana usando document.write()
+    nuevaVentana.document.write('&lt;h2&gt;Información Personal&lt;/h2&gt;');
+    nuevaVentana.document.write('&lt;strong&gt;Nombre:&lt;/strong&gt; Juan Pérez&lt;br&gt;');
+    nuevaVentana.document.write('&lt;strong&gt;Edad:&lt;/strong&gt; 28 años&lt;br&gt;');
+    nuevaVentana.document.write('&lt;br&gt;&lt;button onclick=\"window.close()\"&gt;Cerrar&lt;/button&gt;');
+    nuevaVentana.document.close();
+}</code></pre>
+        </div>
+    </div>
+
+    <script>
+        function mostrarConDocumentWrite() {
+            // Abrir una nueva ventana
+            let nuevaVentana = window.open('', '_blank', 'width=500,height=300');
+            
+            // Escribir en la nueva ventana usando document.write()
+            nuevaVentana.document.write('<html><head><title>Información Personal</title>');
+            nuevaVentana.document.write('<style>body { font-family: Arial, sans-serif; padding: 20px; }</style>');
+            nuevaVentana.document.write('</head><body>');
+            nuevaVentana.document.write('<h2>Información Personal</h2>');
+            nuevaVentana.document.write('<strong>Nombre:</strong> Juan Pérez<br>');
+            nuevaVentana.document.write('<strong>Edad:</strong> 28 años<br>');
+            nuevaVentana.document.write('<br><button onclick="window.close()">Cerrar</button>');
+            nuevaVentana.document.write('</body></html>');
+            nuevaVentana.document.close();
+        }
+    </script>
+</body>
+</html>
