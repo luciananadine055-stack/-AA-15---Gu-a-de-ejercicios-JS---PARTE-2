@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Serie Numérica</title>
+    <style>
+        body { font-family: Arial; margin: 50px; }
+        .serie { font-size: 18px; line-height: 1.8; }
+        .termino { 
+            display: inline-block; 
+            margin: 5px; 
+            padding: 5px 10px; 
+            background: #f0f0f0; 
+            border-radius: 3px; 
+        }
+    </style>
+</head>
+<body>
+    <h2>25 términos de la serie: 11 - 22 - 33 - 44 ...</h2>
+    <div class="serie">
+        <script>
+            let contador = 1;
+            let termino = 11;
+            
+            // ESTRUCTURA REPETITIVA WHILE
+            while (contador <= 25) {
+                document.write('<span class="termino">' + termino + '</span>');
+                if (contador < 25) {
+                    document.write(' - ');
+                }
+                termino += 11;
+                contador++;
+            }
+        </script>
+    </div>
+</body>
+</html>
