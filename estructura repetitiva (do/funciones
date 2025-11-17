@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mostrar Números</title>
+    <style>
+        body { font-family: Arial; margin: 50px; }
+        .numeros { font-size: 18px; margin: 20px 0; }
+        .num { display: inline-block; margin: 5px; padding: 5px 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h2>Mostrar Números entre dos Valores</h2>
+    <button onclick="iniciar()">Comenzar</button>
+    <div id="resultado"></div>
+
+    <script>
+        // FUNCIÓN que muestra la secuencia
+        function mostrarSecuencia(menor, mayor) {
+            let secuencia = '';
+            for (let i = menor; i <= mayor; i++) {
+                secuencia += `<span class="num">${i}</span> `;
+            }
+            return secuencia;
+        }
+        
+        function iniciar() {
+            let menor = parseInt(prompt("Ingrese el número menor:"));
+            let mayor = parseInt(prompt("Ingrese el número mayor:"));
+            
+            if (menor >= mayor) {
+                alert("El primer número debe ser menor que el segundo");
+                return;
+            }
+            
+            const resultado = mostrarSecuencia(menor, mayor);
+            document.getElementById('resultado').innerHTML = resultado;
+        }
+    </script>
+</body>
+</html>
